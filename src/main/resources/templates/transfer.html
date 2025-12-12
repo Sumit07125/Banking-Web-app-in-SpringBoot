@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transfer Funds</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script>
+        function validateTransferForm(event) {
+            event.preventDefault();
+
+            const senderAcc = document.getElementById("senderAcc").value.trim();
+            const senderPin = document.getElementById("senderPin").value.trim();
+            const receiverAcc = document.getElementById("receiverAcc").value.trim();
+            const amount = document.getElementById("amount").value.trim();
+
+            // Regex for validation
+            const accRegex = /^[0-9]+$/;
+            const pinRegex = /^\d{4}$/;
+
+            // Validation checks
+            if (!accRegex.test(senderAcc)) {
+                alert("❌ Sender Account must contain digits only.");
+                return false;
+            }
+
+            if (!pinRegex.test(senderPin)) {
+                alert("❌ Sender PIN must be exactly 4 digits.");
+                return false;
+            }
+
+            if (!accRegex.test(receiverAcc)) {
+                alert("❌ Receiver Account must contain digits only.");
+                return false;
+            }
+
+            if (senderAcc === receiverAcc) {
+                alert("❌ Sender and Receiver account numbers cannot be the same.");
+                return false;
+            }
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("❌ Amount must be greater than 0.");
+                return false;
+            }
+
+            // ✅ All validations passed
+            event.target.submit();
+        }
+    </script>
+</head>
+<body>
+<div class="navbar">
+    <h1>Transfer Funds</h1>
+</div>
+
+<div class="container">
+    <h2>Transfer Money Between Accounts</h2>
+    <form th:action="@{/transfer}" method="post" onsubmit="validateTransferForm(event)">
+        <label for="senderAcc">Sender Account:</label>
+        <input type="text" id="senderAcc" name="senderAcc" required>
+
+        <label for="senderPin">Sender PIN:</label>
+        <input type="password" id="senderPin" name="senderPin" required>
+
+        <label for="receiverAcc">Receiver Account:</label>
+        <input type="text" id="receiverAcc" name="receiverAcc" required>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" step="0.01" required>
+
+        <button type="submit">Transfer</button>
+    </form>
+
+    <p class="msg" th:text="${msg}"></p>
+    <a href="/">Back to Home</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Statement</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h1>Account Statement</h1>
+</div>
+<div class="container">
+    <h2>Mini Statement for Account: <span th:text="${accNo}"></span></h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${transactions}">
+                <td th:text="${t.date}"></td>
+                <td th:text="${t.type}"></td>
+                <td th:text="${t.amount}"></td>
+                <td th:text="${t.balanceAfter}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{'/statement/' + ${accNo} + '/download'}">Download as CSV</a>
+    <a href="/">Back to Home</a>
+</div>
+</body>
+</html>

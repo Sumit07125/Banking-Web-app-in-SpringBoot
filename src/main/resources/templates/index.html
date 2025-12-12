@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Banking System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h1>Banking Management System</h1>
+</div>
+<div class="container">
+    <div th:if="${msg}" class="message success" th:text="${msg}"></div>
+    <h2>Welcome to the Bank</h2>
+    <ul class="menu">
+        <li><a href="/create">Create New Account</a></li>
+        <li><a href="/deposit">Deposit Money</a></li>
+        <li><a href="/withdraw">Withdraw Funds</a></li>
+        <li><a href="/transfer">Transfer Between Accounts</a></li>
+        <li><a href="/statement">View Mini Statement</a></li>
+        <li><a href="/delete">Delete Account</a></li>
+    </ul>
+</div>
+</body>
+</html>

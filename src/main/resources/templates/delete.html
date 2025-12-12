@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Account</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="navbar">
+    <h1>Delete Account</h1>
+</div>
+<div class="container">
+    <h2>Delete Bank Account</h2>
+    <form th:action="@{/delete}" method="post">
+        <label for="accountNumber">Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" required>
+
+        <label for="pin">PIN:</label>
+        <input type="password" id="pin" name="pin" required>
+
+        <button type="submit">Delete Account</button>
+    </form>
+    <p class="msg" th:text="${msg}"></p>
+    <a href="/">Back to Home</a>
+</div>
+</body>
+</html>

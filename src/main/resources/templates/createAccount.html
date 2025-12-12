@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Create Account</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script>
+      function validateForm(event) {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mobileNumber = document
+          .getElementById("mobileNumber")
+          .value.trim();
+        const pin = document.getElementById("pin").value.trim();
+
+        const namePattern = /^[A-Za-z\s]+$/;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const pinPattern = /^\d{4}$/;
+
+        let errorMsg = "";
+
+        if (!namePattern.test(name)) {
+          errorMsg +=
+            "❌ Name must only contain letters (no numbers or symbols).\n";
+        }
+
+        if (!emailPattern.test(email)) {
+          errorMsg += "❌ Invalid email format.\n";
+        }
+
+        if (mobileNumber && !/^\d{10,15}$/.test(mobileNumber)) {
+          errorMsg += "❌ Mobile number should be 10-15 digits.\n";
+        }
+
+        if (!pinPattern.test(pin)) {
+          errorMsg += "❌ PIN must be exactly 4 digits.\n";
+        }
+
+        if (errorMsg !== "") {
+          alert(errorMsg);
+          event.preventDefault();
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #eef6f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #0077b6;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 500px;
+        background: white;
+        margin: 50px auto;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #0077b6;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #023e8a;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      .msg {
+        color: green;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1>🏦 Create Account</h1>
+    </div>
+
+    <div class="container">
+      <h2>Create a New Bank Account</h2>
+
+      <form
+        th:action="@{/create}"
+        th:object="${account}"
+        method="post"
+        onsubmit="return validateForm(event)"
+      >
+        <label for="name">Full Name:</label>
+        <input
+          type="text"
+          id="name"
+          th:field="*{name}"
+          placeholder="Enter your full name"
+          required
+        />
+
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          th:field="*{email}"
+          placeholder="example@email.com"
+          required
+        />
+
+        <label for="mobileNumber">Mobile Number *</label>
+        <input
+          type="text"
+          id="mobileNumber"
+          th:field="*{mobileNumber}"
+          placeholder="Enter mobile number"
+          required
+        />
+
+        <label for="mailingAddress">Mailing Address</label>
+        <input
+          type="text"
+          id="mailingAddress"
+          th:field="*{mailingAddress}"
+          placeholder="Your mailing address"
+        />
+
+        <label for="nomineeName">Nominee Name</label>
+        <input
+          type="text"
+          id="nomineeName"
+          th:field="*{nomineeName}"
+          placeholder="Nominee (optional)"
+        />
+
+        <label for="pin">4-Digit PIN:</label>
+        <input
+          type="password"
+          id="pin"
+          th:field="*{pin}"
+          placeholder="****"
+          maxlength="4"
+          required
+        />
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p class="msg" th:text="${message}"></p>
+      <a href="/" class="back">⬅️ Back to Home</a>
+    </div>
+  </body>
+</html>

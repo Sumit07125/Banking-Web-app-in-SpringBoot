@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mini Statement</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script>
+        function validateStatementForm(event) {
+            event.preventDefault();
+
+            const accountNumber = document.getElementById("accountNumber").value.trim();
+            const pin = document.getElementById("pin").value.trim();
+
+            // Regex for validations
+            const accountNumberRegex = /^[0-9]+$/;
+            const pinRegex = /^\d{4}$/;
+
+            // Validation checks
+            if (!accountNumberRegex.test(accountNumber)) {
+                alert("❌ Account Number must contain digits only.");
+                return false;
+            }
+
+            if (!pinRegex.test(pin)) {
+                alert("❌ PIN must be exactly 4 digits.");
+                return false;
+            }
+
+            // ✅ All validations passed
+            event.target.submit();
+        }
+    </script>
+</head>
+<body>
+<div class="navbar">
+    <h1>Mini Statement</h1>
+</div>
+
+<div class="container">
+    <h2>View Mini Statement</h2>
+    <form th:action="@{/statement}" method="post" onsubmit="validateStatementForm(event)">
+        <label for="accountNumber">Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" required>
+
+        <label for="pin">PIN:</label>
+        <input type="password" id="pin" name="pin" required>
+
+        <button type="submit">View Statement</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+</div>
+</body>
+</html>
