@@ -48,10 +48,10 @@ Unlike traditional banking apps, this project integrates **GSAP animations** and
 ## 🖼️ UI Preview
 
 <div align="center"> 
-  <img src="Screenshot 2025-12-11 180241.jpg" alt="Banking Dashboard UI" width="800" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.5);">
+  <img src="Screenshot 2025-12-11 180241.png" alt="Banking Dashboard UI" width="800" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.5);">
   <p><em>Interactive User Dashboard with Real-time Balance & Quick Actions</em></p>
   <br>
-  <img src="Screenshot 2025-12-11 183243.jpg" alt="Transaction History" width="800" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.5);">
+  <img src="Screenshot 2025-12-11 183243.png" alt="Transaction History" width="800" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.5);">
   <p><em>Comprehensive Transaction History & Statement Generation</em></p>
 </div>
 
@@ -242,6 +242,14 @@ If you found this project helpful or interesting, please give it a **Star** ⭐�
 <h3>Built with ❤️ by Sumit</h3>
 </div>
 
-```
+## ⚙️ System Architecture
 
-```
+The application follows a **Monolithic Client–Server Architecture** (Frontend served as static assets or via proxy), ensuring data consistency and ease of deployment.
+
+```mermaid
+graph TD
+    A["Client (React 19)"] -->|REST API| B["Spring Boot Controllers"]
+    B -->|Business Logic| C["Service Layer"]
+    C -->|Uses| R["Repository Layer"]
+    R -->|JPA / Hibernate| D[("MySQL Database")]
+    C -->|SMTP| E["Email Server (Gmail)"]
